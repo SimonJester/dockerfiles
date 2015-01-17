@@ -21,18 +21,34 @@ RUN apt-get autoremove && \
     apt-get update && \
     apt-get dist-upgrade -y
 
+# Install packages that are prerequisites for everything below
+RUN apt-get install -y git python-setuptools python-dev \
+    build-essential cmake
+RUN easy_install pip
+RUN pip install --upgrade virtualenv
+RUN pip install -U pytest pytest-cov
+
 # Set up my personal basics like vim editor and such
-RUN apt-get install -y vim
+RUN apt-get install -y curl && vim
 #TODO: Add better command completion.
 #TODO: Remove Unity sliders.
 #TODO: Improve command history etc.
 
-# Install packages that are prerequisites for everything below
-RUN apt-get install -y git python-setuptools python-dev build-essential
-RUN easy_install pip
-RUN pip install --upgrade virtualenv
-RUN pip install -U pytest pytest-cov
-#TODO: Need to upgrade pytest? (get error: unrecognized arguments: --cov=. --cov-report)
+# Set up python tab-completion for vim
+RUN mkdir -p ~/.vim/autoload ~/.vim/bundle && \
+    curl -LSso ~/.vim/autoload/pathogen.vim https://tpo.pe/pathogen.vim
+#TODO: Consider switching from pathogen to vundle -- it handles cloning and upgrades automatically.
+RUN cd ~/.vim/bundle && git clone git://github.com/klen/python-mode.git
+RUN cd ~/.vim/bundle/python-mode
+#TODO: Figure out how to run this command in vim: :helptags ~/.vim/bundle/python-mode/doc/
+RUN cd ~/.vim/bundle && git clone https://github.com/scrooloose/syntastic.git
+RUN cd ~/.vim/bundle && git clone https://github.com/Valloric/YouCompleteMe.git
+RUN cd ~/.vim/bundle/YouCompleteMe && \
+    git submodule update --init --recursive && \
+    ./install.sh --clang-completer  #TODO: Do I need C language support?
+#TODO: Append to vimrc all lines related to packages (see my vimrc file).
+
+#TODO: Add steps that install emacs and Evil (Note: evil will only install if you use the tarball method.)
 
 # Install via package manager:
 # keepassx
