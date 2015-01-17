@@ -34,6 +34,40 @@ RUN pip install --upgrade virtualenv
 RUN pip install -U pytest pytest-cov
 #TODO: Need to upgrade pytest? (get error: unrecognized arguments: --cov=. --cov-report)
 
+# Install via package manager:
+# keepassx
+# vim
+# gvim
+# emacs
+# virtualbox
+# unison
+# gparted
+
+# Download and install tor browser
+# also, must create Tor\ Browser.desktop file
+# and save it to /usr/share/applications/
+# and set up bookmark sync
+
+# Install google chrome (must do it through firefox)
+
+# Set up bitmessage and create a bitmessage.desktop file
+
+# Change the Brightness & Lock so it dims screen after 1hr
+
+# Set clock so it displays Weekday, Date & Month, Year, and Seconds
+
+# Set up keyboard for international use
+#(TBD: equivalent of En1 > Text Entry Settings > English (US, international with dead keys))
+
+# Install my custom files: 
+# .bashrc
+# .emacs
+# .inputrc
+# .profile
+# .viminfo
+# .vimrc
+
+
 # Set up a folder for doing software development
 RUN mkdir -p /src
 
