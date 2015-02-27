@@ -1,5 +1,0 @@
-set editing-mode vi
-set completion-ignore-case on
-set completion-map-case on
-Control-j: menu-complete
-Control-k: menu-complete-backward
